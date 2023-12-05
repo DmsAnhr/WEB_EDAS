@@ -1,3 +1,7 @@
-# WEB_EDAS
+# EDAS Calculator Website
 
-npm install
+- Dimas Putra anhar
+- Sabillar Rosyid
+
+## install the module
+```npm install```
