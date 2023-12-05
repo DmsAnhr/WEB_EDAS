@@ -230,7 +230,7 @@ app.get("/perhitungan", async (req, res) => {
     const as = hitungAs(nsp, nsn);
 
     const hasil = alternatif.map((alternatif, index) => ({
-        id: alternatif.id,
+        id: alternatif.id, 
         alternatif: alternatif.alternatif,
         keterangan: alternatif.keterangan,
         skor: parseFloat(as[index])
