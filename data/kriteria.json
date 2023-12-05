@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "kriteria": "C1",
+    "keterangan": "Average Report Card Value",
+    "bobot": 0.457,
+    "tipe": "Benefit"
+  },
+  {
+    "id": 2,
+    "kriteria": "C2",
+    "keterangan": "Value of Attendance",
+    "bobot": 0.257,
+    "tipe": "Benefit"
+  },
+  {
+    "id": 3,
+    "kriteria": "C3",
+    "keterangan": "Organization",
+    "bobot": 0.157,
+    "tipe": "Cost"
+  },
+  {
+    "id": 4,
+    "kriteria": "C4",
+    "keterangan": "Achievement",
+    "bobot": 0.09,
+    "tipe": "Benefit"
+  },
+  {
+    "id": 5,
+    "kriteria": "C5",
+    "keterangan": "Personality Values",
+    "bobot": 0.04,
+    "tipe": "Cost"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "alternatif": "A1",
+    "keterangan": "Rahmat Julianto",
+    "skor": 0.356
+  },
+  {
+    "id": 2,
+    "alternatif": "A2",
+    "keterangan": "Putri Amanda Sari",
+    "skor": 0.309
+  },
+  {
+    "id": 3,
+    "alternatif": "A3",
+    "keterangan": "Bambang Supriyadi",
+    "skor": 0.619
+  },
+  {
+    "id": 4,
+    "alternatif": "A4",
+    "keterangan": "Hendra Gunawan",
+    "skor": 0.353
+  },
+  {
+    "id": 5,
+    "alternatif": "A5",
+    "keterangan": "Hadi Santoso ",
+    "skor": 0.612
+  },
+  {
+    "id": 6,
+    "alternatif": "A6",
+    "keterangan": "Silvia Agustina",
+    "skor": 0.274
+  },
+  {
+    "id": 7,
+    "alternatif": "A7",
+    "keterangan": "Hilda Sitorus",
+    "skor": 0.536
+  },
+  {
+    "id": 8,
+    "alternatif": "A8",
+    "keterangan": "Hendrik Yudistira",
+    "skor": 0.614
+  }
+]
