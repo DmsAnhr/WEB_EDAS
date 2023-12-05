@@ -4,4 +4,6 @@
 - Sabillar Rosyid
 
 ## install the module
-```npm install```
+```
+npm install
+```
