@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="admin.css">
+    <link rel="stylesheet" type="text/css" href="fontawesome-free/css/all.min.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
+      <div class="container-fluid ml-2">
+        <a class="navbar-brand" href="#">Perhitungan SPK Eddas</a>
+        <form class="d-flex ms-auto">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success me-2" type="submit">Search</button>
+          <div class="spacer"></div> <!-- Spacer atau margin tambahan -->
+        </form>
+    
+      </div>
+    </nav>
+    
+    
+
+    <div class="row no-gutters mt-5">
+      <div class="col-md-2 bg-dark mt-2 pr-3 pt-4">
+        <ul class="nav flex-column ml-3 mb-5">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="dashboard.html">Home</a><hr class="bg-secondary">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="alternatif.html">Data Alternatif</a><hr class="bg-secondary">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="kriteria.html">Daftar Kriteria</a><hr class="bg-secondary">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="penilaian.html">Penilaian</a><hr class="bg-secondary">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="perhitungan.html">Perhitungan</a><hr class="bg-secondary">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="ranking.html">Ranking</a><hr class="bg-secondary">
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 p-5 pt-4">
+        <h3>Dasboard</h3><hr class="bg-secondary">
+
+        <div class="row text-white">
+          <div class="col-md-4">
+              <div class="card bg-danger ml-3" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">Daftar Kriteria</h5>
+                      <a href="{{ route('kriteria') }}"><p class="card-text text-white">Lihat detail</p></a>
+                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md-4">
+              <div class="card bg-info ml-3" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">Daftar Alternatif</h5>
+                      <a href="{{ route('alternatif') }}"><p class="card-text text-white">Lihat detail</p></a>
+                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md-4">
+              <div class="card bg-info ml-3" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">Daftar Ranking</h5>
+                      <a href=""><p class="card-text text-white">Lihat detail</p></a>
+                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+
+    </div>
+      
+  </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    <script type="text/javascript" src="admin.js"></script>
+  </body>
+</html>
