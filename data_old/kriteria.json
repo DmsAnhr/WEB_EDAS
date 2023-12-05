@@ -1,0 +1,9 @@
+[
+  {"id": 1, "kriteria": "C1", "keterangan": "Tidak mengandung kekerasan", "bobot": 0.20},
+  {"id": 2, "kriteria": "C2", "keterangan": "Tidak mengandung kata-kata kasar", "bobot": 0.15},
+  {"id": 3, "kriteria": "C3", "keterangan": "Tidak mengandung pornografi", "bobot": 0.20},
+  {"id": 4, "kriteria": "C4", "keterangan": "Bersifat mendidik", "bobot": 0.25},
+  {"id": 5, "kriteria": "C5", "keterangan": "Menghibur", "bobot": 0.10},
+  {"id": 6, "kriteria": "C6", "keterangan": "Kreatif", "bobot": 0.10}
+]
+  
