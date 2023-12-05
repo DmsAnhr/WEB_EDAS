@@ -1,0 +1,234 @@
+<!-- <h1 class="m-5">Metode EDAS - Perhitungan</h1> -->
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-3 pt-5 bg-light">
+            <div class="list-group side-menu position-sticky">
+                <h1>Perhitungan</h1>
+                <a href="#top" class="list-group-item list-group-item-action rounded-top active">1. <b>AV</b></a>
+                <a href="#PDA" class="list-group-item list-group-item-action">2. <b>PDA</b></a>
+                <a href="#NDA" class="list-group-item list-group-item-action">3. <b>NDA</b></a>
+                <a href="#terbobot" class="list-group-item list-group-item-action">4. <b>SP / SN</b></a>
+                <a href="#normalisasi" class="list-group-item list-group-item-action">5. <b>NSP /NSN</b></a>
+                <a href="#skor" class="list-group-item list-group-item-action rounded-bottom">6. <b>AS</b></a>
+            </div>
+        </div>
+        <div class="col-9 pt-5 content-area">
+            <h1>Metode EDAS</h1>
+            
+            <section id="top">
+                <h3 class="text-center mt-5">Solusi Rata-rata (AV)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Alternatif</th>
+                            <% for (let i=0; i < kriteria.length; i++) { %>
+                                <th scope="col" class="text-center">
+                                    <%= kriteria[i].kriteria %>
+                                </th>
+                                <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i=0; i < matriks.length; i++) { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= matriks[i].alternatif %>
+                                </th>
+                                <td>
+                                    <%= alternatif[i].keterangan %>
+                                </td>
+                                <% for (let j=1; j <=kriteria.length; j++) { %>
+                                    <td class="text-center">
+                                        <%= matriks[i]['C'+j] %>
+                                    </td>
+                                    <% } %>
+                            </tr>
+                            <% } %>
+                                <tr class="bg-light">
+                                    <th colspan="2" class="text-center">Rata-Rata</th>
+                                    <% solusiRataRata.forEach(rataRata=> { %>
+                                        <th class="text-center">
+                                            <%= rataRata %>
+                                        </th>
+                                        <% }); %>
+                                </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="PDA">
+                <h3 class="text-center mt-5">Jarak Positif Rata-Rata (PDA)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+                            <th colspan="<%= kriteria.length %>" class="text-center">Kriteria</th>
+                        </tr>
+                        <tr>
+                            <% kriteria.forEach(kriteria=> { %>
+                                <th class="text-center">
+                                    <%= kriteria.kriteria %>
+                                </th>
+                                <% }); %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% alternatif.forEach((alternatif, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= alternatif.alternatif %>
+                                </td>
+                                <% pda[index].forEach(pdaValue=> { %>
+                                    <td class="text-center">
+                                        <%= pdaValue.toFixed(2) %>
+                                    </td>
+                                    <% }); %>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="NDA">
+                <h3 class="text-center mt-5">Jarak Negatif Rata-Rata (NDA)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+                            <th colspan="<%= kriteria.length %>" class="text-center">Kriteria</th>
+                        </tr>
+                        <tr>
+                            <% kriteria.forEach(kriteria=> { %>
+                                <th class="text-center">
+                                    <%= kriteria.kriteria %>
+                                </th>
+                                <% }); %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% alternatif.forEach((alternatif, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= alternatif.alternatif %>
+                                </td>
+                                <% nda[index].forEach(ndaValue=> { %>
+                                    <td class="text-center">
+                                        <%= ndaValue.toFixed(2) %>
+                                    </td>
+                                    <% }); %>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="terbobot">
+                <h3 class="text-center mt-5">Jumlah terbobot (SP / SN)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Alternatif</th>
+                            <th>Keterangan</th>
+                            <th class="text-center">SP</th>
+                            <th class="text-center">SN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% alternatif.forEach((alternatif, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= alternatif.alternatif %>
+                                </td>
+                                <td>
+                                    <%= alternatif.keterangan %>
+                                </td>
+                                <td class="text-center">
+                                    <%= sp[index].toFixed(3) %>
+                                </td>
+                                <td class="text-center">
+                                    <%= sn[index].toFixed(3) %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <tr>
+                                    <th colspan="2" class="text-center bg-light">Max Value</th>
+                                    <% if (sp.length> 0 && sn.length > 0) { %>
+                                        <th class="text-center bg-light">
+                                            <%= Math.max(...sp).toFixed(3) %>
+                                        </th>
+                                        <th class="text-center bg-light">
+                                            <%= Math.max(...sn).toFixed(3) %>
+                                        </th>
+                                        <% } %>
+                                </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="normalisasi">
+                <h3 class="text-center mt-5">Normalisasi (NSP / NSN)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Alternatif</th>
+                            <th>Keterangan</th>
+                            <th class="text-center">NSP</th>
+                            <th class="text-center">NSN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% alternatif.forEach((alternatif, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= alternatif.alternatif %>
+                                </td>
+                                <td>
+                                    <%= alternatif.keterangan %>
+                                </td>
+                                <td class="text-center">
+                                    <%= (sp[index] / Math.max(...sp)).toFixed(3) %>
+                                </td>
+                                <td class="text-center">
+                                    <%= (sn[index] / Math.max(...sn)).toFixed(3) %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="skor">
+                <h3 class="text-center mt-5">Skor Penilaian (AS)</h3>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Alternatif</th>
+                            <th>Keterangan</th>
+                            <th>AS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% alternatif.forEach((alternatif, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= alternatif.alternatif %>
+                                </td>
+                                <td>
+                                    <%= alternatif.keterangan %>
+                                </td>
+                                <td>
+                                    <%= ((parseFloat(nsp[index]) + parseFloat(nsn[index])) / 2).toFixed(3) %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+            </section>
+        </div>
+    </div>
+
+
+</div>

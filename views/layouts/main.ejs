@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content="width=device-width, initial-scale=1">
+    <title>EDAS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/boostrap/bootstrap.css">
+    <link rel="stylesheet" href="css/FontAwesome/all.css">
+    <link rel="stylesheet" href="css/FontAwesome/light.css">
+    <link rel="stylesheet" href="css/FontAwesome/regular.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light position-sticky" style="top: 0;z-index: 999;">
+        <div class="container">
+
+            <a class="navbar-brand">Dimas<span class="text-primary">Sabil</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item <%= activePage === 'home' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item <%= activePage === 'kriteria' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="kriteria">Kriteria</a>
+                    </li>
+                    <li class="nav-item <%= activePage === 'alternatif' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="alternatif">Alternatif</a>
+                    </li>
+                    <li class="nav-item <%= activePage === 'matriks' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="matriks">Matriks</a>
+                    </li>
+                    <li class="nav-item <%= activePage === 'perhitungan' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="perhitungan">Perhitungan</a>
+                    </li>
+                    <li class="nav-item <%= activePage === 'rangking' ? 'active font-weight-bold' : '' %>">
+                        <a class="nav-link" href="rangking">Rangking</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    Aplikasi SPK EDAS
+                </span>
+            </div>
+        </div>
+    </nav>
+
+
+    <%- body %>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/boostrap/bootstrap.js"></script>
+    <script src="js/FontAwesome/all.js"></script>
+    <script src="js/FontAwesome/light.js"></script>
+    <script src="js/FontAwesome/regular.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

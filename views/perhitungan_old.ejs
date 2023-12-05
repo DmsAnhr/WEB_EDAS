@@ -1,0 +1,330 @@
+<div class="container mt-5">
+<h1 class="mb-5">Metode EDAS - Perhitungan</h1>
+
+
+<% 
+    let maxSP = 0;
+    let maxSN = 0;
+    
+    // Jarak Rata-Rata Positif
+    function hitungJarakPositif(rataRata, nilaiAlternatif) {
+        return ((parseFloat(rataRata) - nilaiAlternatif) / parseFloat(rataRata)).toFixed(3);
+    } 
+
+    // Jarak Rata-Rata Negatif
+    function hitungJarakNegatif(nilaiAlternatif, rataRata) {
+        return ((nilaiAlternatif - parseFloat(rataRata)) / parseFloat(rataRata)).toFixed(3);
+    } 
+    
+    // PDA
+    function hitungBobotPositif(rataRataPositif, nilaiAlternatif, bobot) { 
+        return (parseFloat(bobot) * hitungJarakPositif(rataRataPositif, nilaiAlternatif)).toFixed(3);
+    } 
+  
+    // NDA
+    function hitungBobotNegatif(nilaiAlternatif, rataRataNegatif, bobot) { 
+        return (parseFloat(bobot) * hitungJarakNegatif(nilaiAlternatif, rataRataNegatif)).toFixed(3);
+    } 
+
+    //SP
+    function hitungSP(matriks, kriteria) {
+        let sp = 0;
+        for (let j = 1; j <= kriteria.length; j++) {
+            const rataRataPositif = rataRata[kriteria[j-1].kriteria];
+            const pda = kriteria[j - 1].bobot * hitungBobotPositif(rataRataPositif, matriks['C' + j], kriteria[j - 1].bobot);
+            sp += parseFloat(pda);
+            if (maxSP == 0) {
+                maxSP = sp;
+            }else if (sp > maxSP) {
+                maxSP = sp;
+            }
+        }
+        return sp.toFixed(3);
+    }
+
+    //SN
+    function hitungSN( matriks, kriteria) {
+        let sn = 0;
+        for (let j = 1; j <= kriteria.length; j++) {
+            const rataRataNegatif = rataRata[kriteria[j-1].kriteria];
+            const nda = kriteria[j - 1].bobot * hitungBobotNegatif(matriks['C' + j], rataRataNegatif, kriteria[j - 1].bobot);
+            sn += parseFloat(nda);
+            if (maxSN == 0) {
+                maxSN = sn;
+            }else if (sn > maxSN) {
+                maxSN = sn;
+            }
+        }
+        return sn.toFixed(3);
+    }
+%>
+
+
+<h3 class="text-center">Nilai Solusi Rata-Rata</h3>
+<table class="table table-bordered">
+    <thead class="bg-light">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+            <th colspan="6" class="text-center">Kriteria</th>
+        </tr>
+        <tr>
+            <% for (let i=0; i < kriteria.length; i++) { %>
+                <th scope="col" class="text-center">
+                    <%= kriteria[i].kriteria %>
+                </th>
+                <% } %>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let i=0; i < matriks.length; i++) { %>
+            <tr>
+                <td>
+                    <%= matriks[i].alternatif %>
+                </td>
+                <% for (let j=1; j <=kriteria.length; j++) { %>
+                    <td class="text-center">
+                        <%= matriks[i]['C'+j] %>
+                    </td>
+                    <% } %>
+            </tr>
+            <% } %>
+                <tr class="bg-light font-weight-bold">
+                    <td>Rata-Rata</td>
+                    <% for (let i=0; i < kriteria.length; i++) { %>
+                        <td class="text-center">
+                            <%= rataRata[kriteria[i].kriteria] %>
+                        </td>
+                        <% } %>
+                </tr>
+    </tbody>
+</table>
+
+
+<!-- Jarak Rata-Rata Positif -->
+<h3 class="text-center mt-5">Jarak Rata-Rata Positif</h3>
+<table class="table table-bordered">
+    <thead class="bg-light">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+            <th colspan="6" class="text-center">Kriteria</th>
+        </tr>
+        <tr>
+            <% for (let i=0; i < kriteria.length; i++) { %>
+                <th scope="col" class="text-center">
+                    <%= kriteria[i].kriteria %>
+                </th>
+                <% } %>
+        </tr>
+    </thead>
+  <tbody>
+    <% for (let i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <% for (let j = 1; j <= kriteria.length; j++) { %>
+            <% const rrp =  hitungJarakPositif(rataRata[kriteria[j-1].kriteria], matriks[i]['C'+j]) %>
+          <td class="text-center"> <%= rrp %> </td>
+        <% } %>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+<!-- Jarak Rata-Rata Negatif -->
+<h3 class="text-center mt-5">Jarak Rata-Rata Negatif</h3>
+<table class="table table-bordered">
+    <thead class="bg-light">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+            <th colspan="6" class="text-center">Kriteria</th>
+        </tr>
+        <tr>
+            <% for (let i=0; i < kriteria.length; i++) { %>
+                <th scope="col" class="text-center">
+                    <%= kriteria[i].kriteria %>
+                </th>
+                <% } %>
+        </tr>
+    </thead>
+  <tbody>
+    <% for (let i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <% for (let j = 1; j <= kriteria.length; j++) { %>
+            <% const rrn = hitungJarakNegatif(matriks[i]['C'+j], rataRata[kriteria[j-1].kriteria]) %>
+            <td class="text-center"><%= rrn %></td>
+        <% } %>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+<!-- Bobot Positif (PDA) -->
+<h3 class="text-center mt-5">Bobot Positif (PDA)</h3>
+<table class="table table-bordered">
+    <thead class="bg-light">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+            <th colspan="6" class="text-center">Kriteria</th>
+        </tr>
+        <tr>
+            <% for (let i=0; i < kriteria.length; i++) { %>
+                <th scope="col" class="text-center">
+                    <%= kriteria[i].kriteria %>
+                </th>
+                <% } %>
+        </tr>
+    </thead>
+  <tbody>
+    <% for (var i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <% for (var j = 1; j <= kriteria.length; j++) { %>
+            <% var rataRataPositif = rataRata[kriteria[j-1].kriteria];%>
+            <% const pda = hitungBobotPositif(rataRataPositif, matriks[i]['C'+j], kriteria[j-1].bobot)%>
+            <td class="text-center"><%= pda %></td>
+        <% } %>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+<!-- Bobot Negatif (NDA) -->
+<h3 class="text-center mt-5">Bobot Negatif (NDA)</h3>
+<table class="table table-bordered">
+    <thead class="bg-light">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">Alternatif</th>
+            <th colspan="6" class="text-center">Kriteria</th>
+        </tr>
+        <tr>
+            <% for (let i=0; i < kriteria.length; i++) { %>
+                <th scope="col" class="text-center">
+                    <%= kriteria[i].kriteria %>
+                </th>
+                <% } %>
+        </tr>
+    </thead>
+  <tbody>
+    <% for (var i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <% for (var j = 1; j <= kriteria.length; j++) { %>
+            <% var rataRataNegatif = rataRata[kriteria[j-1].kriteria];%>
+            <% const nda = hitungBobotNegatif(matriks[i]['C'+j], rataRataNegatif, kriteria[j-1].bobot) %>
+            <td class="text-center"><%= nda %></td>
+        <% } %>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+
+
+<h3 class="text-center mt-5">Jumlah Terbobot PDA/NDA (SP/SN)</h3>
+<table class="table table-bordered">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">Alternatif</th>
+      <th scope="col">Keterangan</th>
+      <th scope="col">SP</th>
+      <th scope="col">SN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <td><%= alternatif[i].keterangan %></td>
+        <% let sp = 0; %>
+        <% let sn = 0; %>
+        <% for (let j = 1; j <= kriteria.length; j++) { %>
+            <% var rataRataPositif = rataRata[kriteria[j-1].kriteria];%>
+            <% var rataRataNegatif = rataRata[kriteria[j-1].kriteria];%>
+          <% const pda = kriteria[j-1].bobot * hitungBobotPositif(rataRataPositif, matriks[i]['C'+j], kriteria[j-1].bobot); %>
+          <% const nda = kriteria[j-1].bobot * hitungBobotNegatif(matriks[i]['C'+j], rataRataNegatif, kriteria[j-1].bobot); %>
+
+          <% sp += parseFloat(pda); %>
+          <% sn += parseFloat(nda); %>
+
+          <% 
+            if (maxSP == 0) {
+                maxSP = sp;
+            }else if (sp > maxSP) {
+                maxSP = sp;
+            }
+
+            if (maxSN == 0) {
+                maxSN = sn;
+            }else if (sn > maxSN) {
+                maxSN = sn;
+            }
+          %>
+        <% } %>
+        <td class="text-center"><%= sp.toFixed(3) %></td>
+        <td class="text-center"><%= sn.toFixed(3) %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+<h3 class="text-center mt-5">Jumlah Terbobot PDA/NDA (SP/SN)</h3>
+<table class="table table-bordered">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">Alternatif</th>
+      <th scope="col">Keterangan</th>
+      <th scope="col">SP</th>
+      <th scope="col">SN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <td><%= alternatif[i].keterangan %></td>
+        <td class="text-center"><%= hitungSP(matriks[i], kriteria) %></td>
+        <td class="text-center"><%= hitungSN(matriks[i], kriteria) %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+<h3 class="text-center mt-5">Normalisasi SP/SN</h3>
+<table class="table table-bordered">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">Alternatif</th>
+      <th scope="col">Keterangan</th>
+      <th scope="col">NSP</th>
+      <th scope="col">NSN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < matriks.length; i++) { %>
+      <tr>
+        <td><%= matriks[i].alternatif %></td>
+        <td><%= alternatif[i].keterangan %></td>
+        <% const sp = hitungSP(matriks[i], kriteria); %>
+        <% const sn = hitungSN(matriks[i], kriteria); %>
+        <% const nsp = (sp / maxSP.toFixed(3)).toFixed(3); %>
+        <% const nsn = (sn / maxSN).toFixed(3); %>
+        <% console.log(sp); %>
+        <td class="text-center"><%= nsp %></td>
+        <td class="text-center"><%= nsn %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+</div>

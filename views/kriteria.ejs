@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h1>Kriteria <small>(Bobot ROC)</small></h1>
+
+  <table class="table table-bordered">
+    <thead class="bg-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kriteria</th>
+        <th scope="col">Keterangan</th>
+        <th scope="col">Bobot</th>
+        <th scope="col">Tipe</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i < kriteria.length; i++) { %>
+        <tr>
+          <th scope="row">
+            <%= kriteria[i].id %>
+          </th>
+          <td>
+            <%= kriteria[i].kriteria %>
+          </td>
+          <td>
+            <%= kriteria[i].keterangan %>
+          </td>
+          <td>
+            <%= kriteria[i].bobot %>
+          </td>
+          <td>
+            <%= kriteria[i].tipe %>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+</div>

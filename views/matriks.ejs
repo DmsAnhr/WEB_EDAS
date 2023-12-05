@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <h1>Matriks</h1>
+
+  <table class="table table-bordered">
+    <thead class="bg-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Alternatif</th>
+        <% for (let i=0; i < kriteria.length; i++) { %>
+          <th scope="col">
+            <%= kriteria[i].kriteria %>
+          </th>
+          <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i < matriks.length; i++) { %>
+        <tr>
+          <th scope="row">
+            <%= matriks[i].alternatif %>
+          </th>
+          <td>
+            <%= alternatif[i].keterangan %>
+          </td>
+          <% for (let j=1; j <=kriteria.length; j++) { %>
+            <td>
+              <%= matriks[i]['C'+j] %>
+            </td>
+            <% } %>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
+</div>

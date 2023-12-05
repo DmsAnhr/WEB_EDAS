@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h1>alternatif</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Alternatif</th>
+        <th scope="col">Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i < alternatif.length; i++) { %>
+        <tr>
+          <th scope="row">
+            <%= i + 1 %>
+          </th>
+          <td>
+            <%= alternatif[i].alternatif %>
+          </td>
+          <td>
+            <%= alternatif[i].keterangan %>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
+</div>

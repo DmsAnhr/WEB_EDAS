@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h1>rangking</h1>
+
+    <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th>#</th>
+            <th>Alternatif</th>
+            <th>Keterangan</th>
+            <th>Skor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% rangking.forEach((item, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= item.alternatif %></td>
+                <td><%= item.keterangan %></td>
+                <td><%= item.skor.toFixed(3) %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+</div>
