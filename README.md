@@ -1,7 +1,7 @@
 # EDAS Calculator Website
 
-- Dimas Putra anhar
-- Sabillar Rosyid
+- (05) Dimas Putra Anhar W.A
+- (19) Muhammad Sabillar Rosyid 
 
 ## install the module
 ```
