@@ -1,5 +1,6 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
+const bodyParser = require('body-parser');
 const path = require("path");
 const fs = require("fs/promises");
 const app = express();
@@ -8,6 +9,8 @@ const port = 3000;
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 // read file JSON
@@ -185,15 +188,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/alternatif", async (req, res) => {
-  const alternatif = await readJsonFile("alternatif");
-  res.render("alternatif", {
-    layout: "layouts/main",
-    activePage: "alternatif",
-    alternatif,
-  });
-});
-
 app.get("/kriteria", async (req, res) => {
     rocBobot();
   const kriteria = await readJsonFile("kriteria");
@@ -201,6 +195,15 @@ app.get("/kriteria", async (req, res) => {
     layout: "layouts/main",
     activePage: "kriteria",
     kriteria,
+  });
+});
+
+app.get("/alternatif", async (req, res) => {
+  const alternatif = await readJsonFile("alternatif");
+  res.render("alternatif", {
+    layout: "layouts/main",
+    activePage: "alternatif",
+    alternatif,
   });
 });
 
@@ -258,6 +261,164 @@ app.get("/rangking", async (req, res) => {
     rangking,
     namaAlternatif
   });
+});
+
+
+
+// CRUD service
+
+
+app.post('/kriteria',async (req, res) => {
+    console.log(req.body);
+    const { kriteria, keterangan, type } = req.body;
+    const existingData = await readJsonFile('kriteria');
+
+    const newData = {
+        id: existingData.length + 1,
+        kriteria,
+        keterangan,
+        bobot: 0,
+        tipe: type
+    };
+
+    existingData.push(newData);
+    const filePath = path.join(__dirname, 'data', 'kriteria.json');
+    try {
+        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        rocBobot();
+        console.log('Data kriteria berhasil ditambahkan.');
+    } catch (error) {
+        console.error('Error writing to kriteria.json:', error.message);
+    }
+    res.redirect('/kriteria');
+});
+
+app.post('/kriteria/delete/:id', async (req, res) => {
+    console.log(req.params.id);
+    const idData = parseInt(req.params.id);
+    const existingData = await readJsonFile('kriteria');
+
+    const dataToDelete = existingData.find(k => k.id === idData);
+
+    if (!dataToDelete) {
+        return res.status(404).send('Kriteria not found');
+    }
+
+    const updatedData = existingData.filter(k => k.id !== idData);
+
+    const filePath = path.join(__dirname, 'data', 'kriteria.json');
+    try {
+        await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2));
+        console.log('Data kriteria berhasil dihapus.');
+    } catch (error) {
+        console.error('Error writing to kriteria.json:', error.message);
+    }
+    
+    rocBobot();
+    res.redirect('/kriteria');
+});
+
+
+app.post('/alternatif',async (req, res) => {
+    console.log(req.body);
+    const { alternatif, keterangan } = req.body;
+    const existingData = await readJsonFile('alternatif');
+    const existingDataMatriks = await readJsonFile('matriks');
+
+    const newData = {
+        id: existingData.length + 1,
+        alternatif,
+        keterangan
+    };
+
+    const newDataMatriks = {
+        id: existingDataMatriks.length + 1,
+        alternatif: 'A'+(existingDataMatriks.length + 1),
+        C1: 0,
+        C2: 0,
+        C3: 0,
+        C4: 0,
+        C5: 0
+    };
+
+    existingData.push(newData);
+    existingDataMatriks.push(newDataMatriks);
+    const filePath = path.join(__dirname, 'data', 'alternatif.json');
+    const filePathMatriks = path.join(__dirname, 'data', 'matriks.json');
+    try {
+        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        await fs.writeFile(filePathMatriks, JSON.stringify(existingDataMatriks, null, 2));
+        rocBobot();
+        console.log('Data alternatif berhasil ditambahkan.');
+    } catch (error) {
+        console.error('Error writing to alternatif.json:', error.message);
+    }
+    res.redirect('/alternatif');
+});
+
+app.post('/alternatif/delete/:id', async (req, res) => {
+    console.log(req.params.id);
+    const idData = parseInt(req.params.id);
+    const existingData = await readJsonFile('alternatif');
+    const existingDataMatriks = await readJsonFile('matriks');
+
+    const dataToDelete = existingData.find(k => k.id === idData);
+    const dataToDeleteMatriks = existingDataMatriks.find(k => k.id === idData);
+
+    if (!dataToDelete) {
+        return res.status(404).send('alternatif not found');
+    }
+    if (!dataToDeleteMatriks) {
+        return res.status(404).send('matriks not found');
+    }
+
+    const updatedData = existingData.filter(k => k.id !== idData);
+    const updatedDataMatriks = existingDataMatriks.filter(k => k.id !== idData);
+
+    const filePath = path.join(__dirname, 'data', 'alternatif.json');
+    const filePathMatriks = path.join(__dirname, 'data', 'matriks.json');
+    try {
+        await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2));
+        await fs.writeFile(filePathMatriks, JSON.stringify(updatedDataMatriks, null, 2));
+        console.log('Data alternatif berhasil dihapus.');
+    } catch (error) {
+        console.error('Error writing to alternatif.json:', error.message);
+    }
+    
+    rocBobot();
+    res.redirect('/alternatif');
+});
+
+app.post('/matriks/edit/:id', async (req, res) => {
+    const matriksId = parseInt(req.params.id);
+    const { alternatif, c1, c2, c3, c4, c5 } = req.body;
+    const existingData = await readJsonFile('matriks');
+
+    const matriksIndex = existingData.findIndex(m => m.id === matriksId);
+
+    if (matriksIndex === -1) {
+        return res.status(404).send('Matriks not found');
+    }
+
+    existingData[matriksIndex] = {
+        id: matriksId,
+        alternatif,
+        C1: parseInt(c1),
+        C2: parseInt(c2),
+        C3: parseInt(c3),
+        C4: parseInt(c4),
+        C5: parseInt(c5)
+    };
+
+    const filePath = path.join(__dirname, 'data', 'matriks.json');
+    try {
+        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        console.log('Data matriks berhasil diubah.');
+    } catch (error) {
+        console.error('Error writing to matriks.json:', error.message);
+    }
+
+    res.redirect('/matriks');
 });
 
 app.use((req, res) => {

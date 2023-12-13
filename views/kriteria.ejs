@@ -1,5 +1,49 @@
 <div class="container mt-5">
   <h1>Kriteria <small>(Bobot ROC)</small></h1>
+  <!-- <img class="my-4" src="image/roc.jpg" alt="" width="20%"> -->
+
+  <button class="btn btn-secondary btn-block mt-5 mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Tambah Data
+  </button>
+
+  <div class="collapse mb-3" id="collapseExample">
+    <div class="card card-body py-3">
+
+      <form action="/kriteria" method="post">
+        <div class="d-flex justify-content-between">
+          <div class="form-group" style="width: 23%;">
+            <label for="kriteria">Kriteria:</label>
+            <input type="text" class="form-control" name="kriteria" required>
+          </div>
+          <div class="form-group" style="width: 23%;">
+            <label for="keterangan">Keterangan:</label>
+            <input type="text" class="form-control" name="keterangan" required>
+          </div>
+          <div class="form-group" style="width: 23%;">
+            <label for="bobot">Bobot:</label>
+            <input type="number" class="form-control" name="bobot" value="" placeholder="Auto ROC" disabled>
+          </div>
+          <div class="form-group" style="width: 23%;">
+            <label for="type">Type:</label>
+            <select class="form-control" name="type" required>
+              <option selected disabled>Type</option>
+              <option value="Benefit">Benefit</option>
+              <option value="Cost">Cost</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">Kirim Data</button>
+        </div>
+      </form>
+
+      <div class="alert alert-primary text-center mt-3" role="alert">
+        Jangan lupa tambah nilai matriks - Dihalaman <strong>Matriks!</strong>
+      </div>
+
+    </div>
+  </div>
 
   <table class="table table-bordered">
     <thead class="bg-light">
@@ -9,13 +53,14 @@
         <th scope="col">Keterangan</th>
         <th scope="col">Bobot</th>
         <th scope="col">Tipe</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       <% for (let i=0; i < kriteria.length; i++) { %>
         <tr>
           <th scope="row">
-            <%= kriteria[i].id %>
+            <%= i + 1 %>
           </th>
           <td>
             <%= kriteria[i].kriteria %>
@@ -29,8 +74,14 @@
           <td>
             <%= kriteria[i].tipe %>
           </td>
+          <td class="text-center">
+            <form action="/kriteria/delete/<%= kriteria[i].id %>" method="post">
+                <button type="submit" class="btn badge badge-danger">Hapus</button>
+            </form>
+          </td>
         </tr>
         <% } %>
     </tbody>
   </table>
+
 </div>
